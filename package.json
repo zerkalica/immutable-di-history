@@ -56,6 +56,7 @@
   ],
   "dependencies": {
     "babel-runtime": "^5.8.20",
+    "immutable-di": "^1.3.17",
     "modern-diff": "^1.0.1"
   },
   "devDependencies": {
