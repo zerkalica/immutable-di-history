@@ -1,6 +1,6 @@
 {
   "name": "immutable-di-history",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "History diff patch support for immutable-di",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
