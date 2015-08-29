@@ -16,15 +16,19 @@ const patchCompact = Patch({
 })
 
 export default class NativeHistoryCursor extends NativeCursor {
-    constructor(data) {
-        super(data)
-    }
-
-    diff(prevState) {
-        return diffCompact(prevState, this._data)
+    diff(prevState, excludes) {
+        const ps = {}
+        const state = {}
+        Object.keys(prevState).forEach(key => {
+            if (excludes.indexOf(key) === -1) {
+                ps[key] = prevState[key]
+                state[key] = this._state[key]
+            }
+        })
+        return diffCompact(ps, state)
     }
 
     patch(patches) {
-        patchCompact(this._data, patches)
+        patchCompact(this._state, patches)
     }
 }

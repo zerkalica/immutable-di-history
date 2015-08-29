@@ -1,13 +1,7 @@
-# immutable-di history
-
-History diff/patch state support for immutable-di
-
-```js
-
-import MonitorFactory from 'immutable-di-history'
-import NativeHistoryCursor from 'immutable-di-history/cursors/NativeHistoryCursor'
+import MonitorFactory from '../src'
+import NativeHistoryCursor from '../src/cursors/NativeHistoryCursor'
 import Container from 'immutable-di'
-import {Factory} from 'immutable-di/define'
+import {Factory, Setter} from 'immutable-di/define'
 
 Factory.extend = MonitorFactory
 
@@ -40,26 +34,3 @@ const action = Factory([
 container.mount(MonitorDep)
 
 container.get(action)(123)
-/*
-[
-  {
-    "displayName": "MyAction",
-    "id": 9,
-    "args": [
-      123
-    ],
-    "diff": [
-      [
-        "r",
-        [
-          "tis",
-          "a"
-        ],
-        1,
-        123
-      ]
-    ]
-  }
-]
-*/
-```

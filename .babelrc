@@ -6,6 +6,21 @@
         "utility.inlineEnvironmentVariables"
     ],
     "plugins": [
-        "babel-plugin-espower"
-    ]
+        "babel-plugin-module-alias"
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                "babel-plugin-espower"
+            ]
+        }
+    },
+    "extra": {
+        "module-alias": [
+            {
+                "src": "./src",
+                "expose": "immutable-di-history"
+            }
+        ]
+    }
 }

@@ -2,6 +2,14 @@ import Dep from 'immutable-di/utils/Dep'
 import StateMonitor from './StateMonitor'
 import getFunctionName from 'immutable-di/utils/getFunctionName'
 
+import AbstractCursor from 'immutable-di/cursors/abstract'
+import {Factory, Def} from 'immutable-di/define'
+
+const StateMonitorDep = Factory({
+    cursor: AbstractCursor,
+    historyPath: Def(['__history'])
+})(StateMonitor)
+
 export default function MonitorFactory(origDep) {
     return function monitorFactory(fn) {
         const dep = origDep(fn)
@@ -12,8 +20,8 @@ export default function MonitorFactory(origDep) {
             let result
             if (isAction && typeof depResult === 'function') {
                 result = function depWrap(...args) {
-                    const resultData = depResult(...args)
                     const stop = stateMonitor(def, args)
+                    const resultData = depResult(...args)
 
                     Promise.resolve(resultData)
                         .then(stop)
@@ -28,9 +36,8 @@ export default function MonitorFactory(origDep) {
 
             return result
         }
-
         return Dep({
-            deps: [dep, StateMonitor],
+            deps: [dep, StateMonitorDep],
             displayName: displayName + '_monitor',
             isCachedTemporary
         })(monitorResult)

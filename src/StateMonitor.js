@@ -1,6 +1,3 @@
-import AbstractCursor from 'immutable-di/cursors/abstract'
-import Dep from 'immutable-di/utils/Dep'
-
 function filterArgs(args) {
     let result = args
     try {
@@ -16,16 +13,15 @@ function filterArgs(args) {
     return result
 }
 
-function StateMonitor(cursor: AbstractCursor) {
-    const historyCursor = cursor.select(['__history'])
+export default function StateMonitor({cursor, historyPath}) {
+    const historyCursor = cursor.select([historyPath])
     historyCursor.set([])
 
     return function stateMonitor({displayName, id}, args) {
         const prevState = cursor.snap()
 
         return function stop() {
-            const diff = cursor.diff(prevState)
-
+            const diff = cursor.diff(prevState, [historyPath])
             historyCursor.apply(h => h.concat([
                 {
                     displayName,
@@ -37,7 +33,3 @@ function StateMonitor(cursor: AbstractCursor) {
         }
     }
 }
-
-export default Dep({
-    deps: [AbstractCursor]
-})(StateMonitor)
