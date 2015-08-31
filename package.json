@@ -53,7 +53,8 @@
     "*.js",
     "README.md",
     "LICENSE",
-    "utils"
+    "utils",
+    "cursors"
   ],
   "dependencies": {
     "babel-runtime": "^5.8.20",
