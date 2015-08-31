@@ -7,7 +7,7 @@ import {Factory, Def} from 'immutable-di/define'
 
 const StateMonitorDep = Factory({
     cursor: AbstractCursor,
-    historyPath: Def(['__history'])
+    historyPath: Def('__history')
 })(StateMonitor)
 
 export default function MonitorFactory(origDep) {
